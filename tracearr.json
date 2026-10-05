@@ -1,0 +1,42 @@
+{
+  "version": 5,
+  "script": {
+    "version": "1.0.0",
+    "changeLog": "Initial"
+  },
+  "requirements": {
+    "locations": ["ApplicationsPerformance"],
+    "specifications": ["2CORE", "2GBRAM"],
+    "permissions": ["READ_WRITE_LOCATIONS"],
+    "ports": [30316]
+  },
+  "ensure_directories_exists": [
+    {
+      "path": "$LOCATION(ApplicationsPerformance)"
+    },
+    { "path": "$LOCATION(ApplicationsPerformance)/tracearr/postgres_data", "owner": { "user": "netdata", "group": "docker" }, "snapshot": { "id": "db" } }
+  ],
+  "app_values": {
+    "tracearr": {
+      "db_password": "$RANDOM_STRING(16)",
+      "redis_password": "$RANDOM_STRING(16)",
+      "jwt_secret": "$RANDOM_STRING(16)",
+      "cookie_secret": "$RANDOM_STRING(16)"
+    },
+    "network": {
+      "web_port": {
+        "bind_mode": "published",
+        "port_number": 30316
+      }
+    },
+    "storage": {
+      "postgres_data": "$HOST_PATH($LOCATION(ApplicationsPerformance)/tracearr/postgres_data)"
+    },
+    "resources": {
+      "limits": {
+        "cpus": 2,
+        "memory": "$MEMORY(10%, 2048)"
+      }
+    }
+  }
+}
