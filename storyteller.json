@@ -15,7 +15,7 @@
     "permissions": [
       "READ_WRITE_LOCATIONS"
     ],
-    "ports": [30042]
+    "ports": [8001]
   },
   "ensure_directories_exists": [
     {
@@ -52,7 +52,7 @@
     "network": {
       "web_port": {
         "bind_mode": "published",
-        "port_number": 30042
+        "port_number": 8001
       }
     },
   "resources": {
