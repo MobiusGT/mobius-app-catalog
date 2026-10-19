@@ -4,25 +4,6 @@
     "version": "1.0.0",
     "changeLog": "Initial Script"
   },
-  "installation_questions": [
-    {
-      "question": "Choose a Metadata Provider",
-      "type": "select",
-      "key": "image_selector",
-      "required": true,
-      "options": [
-        {
-          "text": "Hardcover Metadata Provider",
-          "value": "image"
-        },
-        {
-          "text": "Goodreads Metadata Provider",
-          "value": "softcover_image"
-        }
-      ],
-      "default": "image"
-    }
-  ],
   "requirements": {
     "locations": [
       "ApplicationsPerformance", "Media", "Downloads"
@@ -50,7 +31,13 @@
   ],
   "app_values": {
     "bookshelf": {
-      "image_selector": "$QUESTION(image_selector)"
+      "image_selector": "image",
+      "additional_envs": [
+        {
+          "name": "HARDCOVER_AUTH",
+          "value": "$QUESTION(HARDCOVER_AUTH)"
+        }
+      ]
     },
     "storage": {
       "config": "$HOST_PATH($LOCATION(ApplicationsPerformance)/bookshelf/config)",
